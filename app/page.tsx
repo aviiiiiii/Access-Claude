@@ -96,8 +96,6 @@ export default function Home() {
     setAttachments([]);
     setIsLoading(true);
 
-    const workflow = WORKFLOWS.find(w => w.id === activeWorkflow);
-
     // Build API-safe messages (strip large base64 from history to save tokens)
     const apiMessages = newMessages.map((m, idx) => {
       if (idx === newMessages.length - 1) return m; // keep latest full
@@ -120,7 +118,7 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: apiMessages,
-          workflowPrompt: workflow?.prompt || null,
+          workflowId: activeWorkflow || null,
         }),
       });
 
@@ -206,11 +204,11 @@ export default function Home() {
             <div style={{
               width: 32, height: 32, background: 'var(--accent)', borderRadius: 6,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              fontSize: '14px', fontWeight: 800, color: 'white', fontFamily: 'var(--font-display)',
-            }}>V</div>
+              fontSize: '11px', fontWeight: 800, color: 'white', fontFamily: 'var(--font-display)',
+            }}>QA</div>
             <div>
-              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>Vidispine QA</div>
-              <div style={{ fontSize: '0.65rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>AI Assistant</div>
+              <div style={{ fontSize: '0.99rem', fontWeight: 700, color: 'var(--text-primary)', fontFamily: 'var(--font-display)' }}>QA Assistant</div>
+              <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)' }}>Internal AI Tool</div>
             </div>
           </div>
         </div>
@@ -317,10 +315,10 @@ export default function Home() {
               <div style={{ fontSize: '48px', opacity: 0.3 }}>🎭</div>
               <div style={{ textAlign: 'center' }}>
                 <div style={{ fontSize: '1.1rem', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '8px', fontFamily: 'var(--font-display)' }}>
-                  Vidispine QA Assistant
+                   QA Assistant
                 </div>
                 <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', maxWidth: '380px', lineHeight: 1.6 }}>
-                  Select a workflow from the sidebar or start typing. Upload PDF/DOCX files for analysis.
+                  Select a workflow from the sidebar or start typing.
                 </div>
               </div>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', justifyContent: 'center', maxWidth: '500px', marginTop: '8px' }}>
